@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ActorServiceImpl implements ActorService {
+public class ActorServiceImpl implements ActorService{
 
     private final ActorRepository actorRepository;
 
@@ -23,12 +23,12 @@ public class ActorServiceImpl implements ActorService {
 
     @Override
     public Actor findById(Long id) {
-        return (Actor) actorRepository.findById(id).orElseThrow(()->
-                new NotFoundException("No record with id "+id+" found"));
+        return actorRepository.findById(id).orElseThrow(()->
+                new NotFoundException("No record with id " + id + " found"));
     }
 
     @Override
-    public Actor Create(Actor actor) {
+    public Actor create(Actor actor) {
         return actorRepository.save(actor);
     }
 
@@ -39,15 +39,15 @@ public class ActorServiceImpl implements ActorService {
 
     @Override
     public Actor update(Actor actor) {
-        Actor foundactor=findById(actor.getId());
-        foundactor.setName(actor.getName());
-        return actorRepository.save(foundactor);
+        Actor foundActor = findById(actor.getId());
+        foundActor.setName(actor.getName());
+        return actorRepository.save(foundActor);
     }
 
     @Override
     public Actor update(Long id, Actor actor) {
-        Actor foundactor=findById(id)    ;
-        foundactor.setName(actor.getName());
-        return actorRepository.save(foundactor);
+        Actor foundActor = findById(id);
+        foundActor.setName(actor.getName());
+        return null;
     }
 }

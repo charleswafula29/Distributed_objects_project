@@ -1,16 +1,15 @@
 package com.ics.demo.models;
 
-import javassist.tools.reflect.CannotCreateException;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
-@Table(name="movies")
-
+@Table(name = "movies")
 public class Movie {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO) //auto increment
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     @NotNull(groups = Update.class)
     private Long id;
@@ -22,9 +21,16 @@ public class Movie {
     @Column(name = "year_released")
     private String yearReleased;
 
-    public Movie(String name, String yearReleased) {
+    @OneToMany(mappedBy = "movie")
+    private List<Actor> actor;
+
+    public Movie(String name, String year) {
         this.name = name;
-        this.yearReleased = yearReleased;
+        this.yearReleased = year;
+    }
+
+    private Movie(){
+
     }
 
     public Long getId() {
@@ -51,11 +57,15 @@ public class Movie {
         this.yearReleased = yearReleased;
     }
 
-    public Movie() {
+    public List<Actor> getActor() {
+        return actor;
     }
 
-    public interface Create{};
+    public void setActor(List<Actor> actor) {
+        this.actor = actor;
+    }
 
-    public interface Update{};
+    public interface Create{}
 
+    public interface Update{}
 }

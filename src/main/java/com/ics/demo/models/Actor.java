@@ -1,24 +1,34 @@
 package com.ics.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="movies")
-
+@Table(name = "actors")
 public class Actor {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO) //auto increment
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    @NotNull(groups = Actor.update.class)
+    @NotNull(groups = Update.class)
     private Long id;
 
     @Column(name = "name")
-    @NotNull(groups = Actor.create.class)
+    @NotNull(groups = Create.class)
     private String name;
 
-    public Actor(@NotNull(groups = Actor.create.class) String name) {
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "movie_id_fk")
+    private Movie movie;
+
+    public Actor(){}
+
+    public Actor(String name, Movie movie) {
         this.name = name;
+        this.movie = movie;
     }
 
     public Long getId() {
@@ -29,13 +39,6 @@ public class Actor {
         this.id = id;
     }
 
-    public Actor() {
-    }
-
-    public interface create{};
-
-    public interface update{};
-
     public String getName() {
         return name;
     }
@@ -43,4 +46,16 @@ public class Actor {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
+    public interface Create{}
+
+    public interface Update{}
 }
