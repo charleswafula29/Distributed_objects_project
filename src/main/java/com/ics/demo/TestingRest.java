@@ -13,6 +13,13 @@ import java.util.List;
 
 @Component
 public class TestingRest implements CommandLineRunner {
+
+    private final FeignRestClient feignRestClient;
+
+    public TestingRest(FeignRestClient feignRestClient) {
+        this.feignRestClient = feignRestClient;
+    }
+
     @Override
     public void run(String... args) throws Exception {
             RestTemplate restTemplate = new RestTemplate();
@@ -24,19 +31,32 @@ public class TestingRest implements CommandLineRunner {
                     new ParameterizedTypeReference<List<Movie>>() {}
             );
             List<Movie> movies = response.getBody();
-            System.out.println(movies.toString());
+            //System.out.println(movies.toString());
+
 
             Movie movie = restTemplate.getForObject(
                     "http://10.51.10.111:9090/movies/4",
                     Movie.class
             );
-            System.err.println(movie.toString());
+            //System.err.println(movie.toString());
 
             String url = "http://10.51.10.111:9090/movies/search?name=" +movie.getName();
             Movie movieByName = restTemplate.getForObject(
                     url,
                     Movie.class
             );
-            System.err.println(movie.toString());
+            //System.err.println(movie.toString());
+
+
+//        Movie newmovie=new Movie("Lacazette!!!!!!!!","2019");
+//        newmovie=feignRestClient.createMovie(newmovie);
+//        System.out.println("Created Movie"+newmovie.toString());
+
+        movies=feignRestClient.getAllMovies();
+        System.err.println(movies.toString());
+
+          Movie updatemovie=new Movie("Arsenal is the Best","since start");
+          updatemovie=feignRestClient.update((long)10,updatemovie);
+
         }
     }
