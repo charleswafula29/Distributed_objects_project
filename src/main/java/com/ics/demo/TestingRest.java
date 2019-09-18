@@ -55,8 +55,9 @@ public class TestingRest implements CommandLineRunner {
         movies=feignRestClient.getAllMovies();
         System.err.println(movies.toString());
 
-          Movie updatemovie=new Movie("Arsenal is the Best","since start");
-          updatemovie=feignRestClient.update((long)10,updatemovie);
+          Movie updatemovie=new Movie("Just updated now","2019");
+          updatemovie=feignRestClient.update((long)11,updatemovie);
+          System.out.println("updated"+updatemovie.toString());
 
         }
     }
