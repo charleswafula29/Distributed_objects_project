@@ -65,8 +65,9 @@ public class TestingRest implements CommandLineRunner {
 //          updatemovie=feignRestClient.update((long)11,updatemovie);
 //          System.out.println("updated"+updatemovie.toString());
 
-        Student student =new Student(95885,"Ruth");
+        Student student =new Student(95049,"charles");
         feignRestClient.createStudent(student);
+
 //        Appointment newappAppointment=new Appointment(5,1);
 //        newappAppointment=feignRestClient.ConfirmAppointment((long)9,(long)5);
         //feignRestClient.createAppointment(newappAppointment);

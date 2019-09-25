@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 //@FeignClient(name = "client", url = "http://10.51.10.111:9090")
+
+
 @FeignClient(name = "client", url = "http://10.55.62.99:1000", configuration = FeignConfig.class)
 public interface FeignRestClient {
 
