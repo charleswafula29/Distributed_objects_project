@@ -1,8 +1,6 @@
 package com.ics.demo;
 
-import com.ics.demo.models.Appointment;
-import com.ics.demo.models.Movie;
-import com.ics.demo.models.Student;
+import com.ics.demo.models.*;
 import feign.Param;
 import feign.QueryMap;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -15,7 +13,7 @@ import java.util.Map;
 //@FeignClient(name = "client", url = "http://10.51.10.111:9090")
 
 
-@FeignClient(name = "client", url = "http://10.55.62.99:1000", configuration = FeignConfig.class)
+@FeignClient(name = "client", url = "http://10.51.10.111:2000", configuration = FeignConfig.class)
 public interface FeignRestClient {
 
     @RequestMapping(method = RequestMethod.GET,value = "movies")
@@ -38,5 +36,15 @@ public interface FeignRestClient {
 
     @RequestMapping(method = RequestMethod.PATCH, value = "appointments/{appointmentId}")
     Appointment ConfirmAppointment(@PathVariable("appointmentId") Long id,@RequestParam(name = "studentId") Long studentId);
+
+    @RequestMapping(method = RequestMethod.POST, value = "companies/{companyId}/attachments")
+    Attachment RequestAttachment(@PathVariable("companyId") Long id, @RequestParam(name = "studentId") Long studentId);
+
+    @RequestMapping(method = RequestMethod.PATCH,value = "companies/{companyId}/attachments")
+    Department RequestDepartment(@PathVariable("companyId") Long companyId,@RequestParam(name = "studentId") Long studentId,@RequestParam(name = "departmentId") Long departmentId);
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "departments")
+    Department RejectDepartment(@RequestBody Department department);
+
 
 }

@@ -1,6 +1,7 @@
 package com.ics.demo;
 
 import com.ics.demo.models.Appointment;
+import com.ics.demo.models.Department;
 import com.ics.demo.models.Movie;
 import com.ics.demo.models.Student;
 import org.springframework.boot.CommandLineRunner;
@@ -28,52 +29,16 @@ public class TestingRest implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-            RestTemplate restTemplate = new RestTemplate();
-//
-//            ResponseEntity<List<Movie>> response = restTemplate.exchange(
-//                    "http://10.51.10.111:9090/movies",
-//                    HttpMethod.GET,
-//                    null,
-//                    new ParameterizedTypeReference<List<Movie>>() {}
-//            );
-//            List<Movie> movies = response.getBody();
-//            //System.out.println(movies.toString());
-//
-//
-//            Movie movie = restTemplate.getForObject(
-//                    "http://10.51.10.111:9090/movies/4",
-//                    Movie.class
-//            );
-            //System.err.println(movie.toString());
 
-//            String url = "http://10.51.10.111:9090/movies/search?name=" +movie.getName();
-//            Movie movieByName = restTemplate.getForObject(
-//                    url,
-//                    Movie.class
-//            );
-            //System.err.println(movie.toString());
-
-
-//        Movie newmovie=new Movie("Lacazette!!!!!!!!","2019");
-//        newmovie=feignRestClient.createMovie(newmovie);
-//        System.out.println("Created Movie"+newmovie.toString());
-
-//        movies=feignRestClient.getAllMovies();
-//        System.err.println(movies.toString());
-//
-//          Movie updatemovie=new Movie("Just updated now","2019");
-//          updatemovie=feignRestClient.update((long)11,updatemovie);
-//          System.out.println("updated"+updatemovie.toString());
-
-        Student student =new Student(95049,"charles");
+        Student student =new Student(95049,"Charles Wafula Shitanda");
         feignRestClient.createStudent(student);
+        feignRestClient.RequestAttachment((long)6,(long)24);
+        feignRestClient.RequestDepartment((long)6,(long)24,(long)12);
+        feignRestClient.RejectDepartment(new Department(24,8,6));
 
-//        Appointment newappAppointment=new Appointment(5,1);
-//        newappAppointment=feignRestClient.ConfirmAppointment((long)9,(long)5);
-        //feignRestClient.createAppointment(newappAppointment);
-        //feignRestClient.createStudent(student);
-
-//        System.err.println("Created Appointment"+newappAppointment.toString());
+        //{"id":24,"studentNumber":"95049","firstName":"Charles Wafula Shitanda","score":3,"attachment":null}
+        //{"id":31,"company":{"id":6,"name":"Villa Rosa Kempinski"},"department":null,"rejected":false}
+        //{"id":31,"company":{"id":6,"name":"Villa Rosa Kempinski"},"department":{"id":8,"name":"Tractor Assembly","company":{"id":5,"name":"Car and General"}},"rejected":false}
 
         }
     }
